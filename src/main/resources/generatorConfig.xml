@@ -20,16 +20,16 @@
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
-        <javaModelGenerator targetPackage="com.mmall.pojo" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.mmall.pojo" targetProject="mmall/src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="constructorBased" value="true"/>
             <property name="trimStrings" value="true"/>
             <property name="immutable" value="false"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="mappers" targetProject="./src/main/resources">
+        <sqlMapGenerator targetPackage="mappers" targetProject="mmall/src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targetProject="mmall/src/main/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <table tableName="mmall_shipping" domainObjectName="Shipping" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
