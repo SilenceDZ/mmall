@@ -2,10 +2,16 @@ package com.mmall.controller.portal;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mmall.common.Const;
+import com.mmall.common.ServerResponse;
+import com.mmall.pojo.User;
+import com.mmall.service.IUserService;
 
 /**
  * @author leo
@@ -16,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user/")
 public class UserController {
+	@Autowired
+	private IUserService iUserService;
 	/**
 	 *Title:login
 	 *Description:用户登录
@@ -27,8 +35,13 @@ public class UserController {
 	 */
 	@RequestMapping(value="login.action",method=RequestMethod.POST)
 	@ResponseBody//通过配置把返回值自动转换成json对象
-	public Object login(String username,String password,HttpSession session){
-		return null;
+	public ServerResponse<User> login(String username,String password,HttpSession session){
+		ServerResponse<User> response = iUserService.login(username, password);
+		if(response.isSuccess()){
+			session.setAttribute(Const.CURRENT_USER,response.getData());
+		}
+		
+		return response;
 		
 	}
 }
