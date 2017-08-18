@@ -23,6 +23,7 @@
                     </list>
                 </property>
             </bean>
+            <!-- 配置自动转换controller的返回值成json对象 -->
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
                 <property name="supportedMediaTypes">
                     <list>
