@@ -2,6 +2,7 @@ package com.mmall.service.impl;
 
 import java.util.UUID;
 
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -142,4 +143,20 @@ public class UserServiceImpl implements IUserService {
 		
 		return ServerResponse.createByErrorMessage("修改密码失败");
 	}
+
+	@Override
+	public ServerResponse<String> resetPassword(String passwordOld,
+			String passowrdNew, User user) {
+		int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld), user.getId());
+		if(resultCount==0){
+			return ServerResponse.createByErrorMessage("旧密码错误");
+		}
+		user.setPassword(MD5Util.MD5EncodeUtf8(passowrdNew));
+		int updateCount = userMapper.updateByPrimaryKeySelective(user);
+		if(updateCount>0){
+			return ServerResponse.createByErrorMessage("密码更新成功");
+		}
+		return ServerResponse.createByErrorMessage("密码更新失败");
+	}
+	
 }

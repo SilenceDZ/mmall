@@ -14,6 +14,7 @@ import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
+import com.mysql.jdbc.interceptors.SessionAssociationInterceptor;
 
 /**
  * @author leo
@@ -92,5 +93,15 @@ public class UserController {
 	@ResponseBody
 	public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
 		return iUserService.forgetResetPassword(username, passwordNew, forgetToken);
+	}
+	
+	@RequestMapping(value="reset_password.action",method=RequestMethod.GET)
+	@ResponseBody
+	public ServerResponse<String> resetPassword(HttpSession seesion,String passwordOld,String passwordNew){
+		User user = (User) seesion.getAttribute(Const.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorMessage("用户名未登录");
+		}
+		return iUserService.resetPassword(passwordOld, passwordNew, user);
 	}
 }
