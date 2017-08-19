@@ -97,11 +97,26 @@ public class UserController {
 	
 	@RequestMapping(value="reset_password.action",method=RequestMethod.GET)
 	@ResponseBody
-	public ServerResponse<String> resetPassword(HttpSession seesion,String passwordOld,String passwordNew){
-		User user = (User) seesion.getAttribute(Const.CURRENT_USER);
+	public ServerResponse<String> resetPassword(HttpSession session,String passwordOld,String passwordNew){
+		User user = (User) session.getAttribute(Const.CURRENT_USER);
 		if(user==null){
 			return ServerResponse.createByErrorMessage("用户名未登录");
 		}
 		return iUserService.resetPassword(passwordOld, passwordNew, user);
+	}
+	
+	public ServerResponse<User> updateInformateion(HttpSession session,User user){
+		User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+		if(currentUser==null){
+			return ServerResponse.createByErrorMessage("用户名未登录");
+		}
+		user.setId(currentUser.getId());
+		user.setUsername(currentUser.getUsername());
+		ServerResponse<User> response = iUserService.updateInformation(user);
+		if(response.isSuccess()){
+			response.getData().setUsername(currentUser.getUsername());
+			session.setAttribute(Const.CURRENT_USER, response.getData()); 
+		}
+		return response;
 	}
 }

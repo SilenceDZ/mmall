@@ -146,17 +146,38 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ServerResponse<String> resetPassword(String passwordOld,
-			String passowrdNew, User user) {
+			String passwordNew, User user) {
 		int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld), user.getId());
 		if(resultCount==0){
 			return ServerResponse.createByErrorMessage("旧密码错误");
 		}
-		user.setPassword(MD5Util.MD5EncodeUtf8(passowrdNew));
+		user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
 		int updateCount = userMapper.updateByPrimaryKeySelective(user);
 		if(updateCount>0){
 			return ServerResponse.createByErrorMessage("密码更新成功");
 		}
 		return ServerResponse.createByErrorMessage("密码更新失败");
+	}
+
+	@Override
+	public ServerResponse<User> updateInformation(User user) {
+		//username 不能被更新
+		//email也要校验，看有无改动。要和id关联。
+		int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());
+		if(resultCount>0){
+			return ServerResponse.createByErrorMessage("email已被注册，请更换email重试");
+		}
+		User updateUser=new User();
+		updateUser.setId(user.getId());
+		updateUser.setEmail(user.getEmail());
+		updateUser.setPhone(user.getPhone());
+		updateUser.setQuestion(user.getQuestion());
+		updateUser.setAnswer(user.getAnswer());
+		int updateCount = userMapper.updateByPrimaryKeySelective(updateUser);
+		if(updateCount>0){
+			return ServerResponse.createBySuccess("更新成功",updateUser);
+		}
+		return ServerResponse.createByErrorMessage("更新失败");
 	}
 	
 }

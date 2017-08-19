@@ -26,5 +26,7 @@ public interface IUserService {
 	 *@return
 	 *Throws
 	 */
-	public ServerResponse<String> resetPassword(String passwordOld,String passowrdNew,User user);
+	public ServerResponse<String> resetPassword(String passwordOld,String passwrdNew,User user);
+
+	public ServerResponse<User> updateInformation(User user);
 }
