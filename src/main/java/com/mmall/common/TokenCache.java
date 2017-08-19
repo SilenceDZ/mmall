@@ -13,6 +13,9 @@ import com.google.common.cache.LoadingCache;
 
 public class TokenCache {
 	private static Logger logger=  LoggerFactory.getLogger(TokenCache.class);
+	
+	public static final String TOKEN_PREFIX="token_";
+	
 	//Guava本地缓存 超出最大值后使用LRU(最少使用)算法移出缓存
 	private static LoadingCache<String ,String > localCache=CacheBuilder.newBuilder().initialCapacity(1000)
 			.maximumSize(10000).expireAfterAccess(12, TimeUnit.HOURS).build(new CacheLoader<String,String>(){
