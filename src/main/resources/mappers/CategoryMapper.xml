@@ -116,4 +116,11 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- List返回类型已经被封装好，直接返回Category类型就可以了 -->
+  <select id="selectCategoryChildrenByParentId" resultMap="BaseResultMap" parameterType="int">
+  	select 
+  	<include refid="Base_Column_list"></include>
+  	from mmall_category
+  	where parent_id=#{parentId}
+  </select>
 </mapper>
