@@ -32,7 +32,7 @@ public class ProductManageController {
 	 *@return
 	 *Throws
 	 */
-	@RequestMapping("/save.action")
+	@RequestMapping("save.action")
 	@ResponseBody
 	public ServerResponse productSave(HttpSession session,Product product){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
@@ -56,7 +56,7 @@ public class ProductManageController {
 	 *@return
 	 *Throws
 	 */
-	@RequestMapping("/set_sale_status.action")
+	@RequestMapping("set_sale_status.action")
 	@ResponseBody
 	public ServerResponse setSaleStatus(HttpSession session,Integer productId,Integer status){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
@@ -66,6 +66,21 @@ public class ProductManageController {
 		//校验一下是否是管理员
 		if(iUserService.checkAdminRole(user).isSuccess()){
 			return iProductService.setSaleStatus(productId, status);
+		}
+		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
+	}
+	
+	@RequestMapping("detail.action")
+	@ResponseBody
+	public ServerResponse getDetail(HttpSession session,Integer productId){
+		User user =(User) session.getAttribute(Const.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+		}
+		//校验一下是否是管理员
+		if(iUserService.checkAdminRole(user).isSuccess()){
+			//业务实现
+			return iProductService.manageProductDetail(productId);
 		}
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
