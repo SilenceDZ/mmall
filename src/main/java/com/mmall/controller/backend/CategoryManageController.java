@@ -76,7 +76,7 @@ public class CategoryManageController {
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
 	
-	@RequestMapping("get_category.action")
+	@RequestMapping("get_deep_category.action")
 	@ResponseBody
 	public ServerResponse getCategoryAndDeepChildrenCategory(HttpSession session,
 			@RequestParam(value="categoryId",defaultValue="0")Integer categoryId){
