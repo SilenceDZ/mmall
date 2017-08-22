@@ -21,9 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
     springmvc上传文件
 	<form name="form1" action="/manage/product/upload.do" method="post" enctype="multipart/form-data">
+	    <!-- name对应upload方法的file -->
 	    <input type="file" name="upload_file" />
 	    <input type="submit" value="springmvc上传文件" />
 	</form>
