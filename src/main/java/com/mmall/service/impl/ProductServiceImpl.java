@@ -117,7 +117,7 @@ public class ProductServiceImpl implements IProductService {
 		productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
 		return productDetailVo;
 	}
-	
+	@Override
 	public ServerResponse<PageInfo> getProductList(int pageNum,int pageSize){
 		//startPage--start
 		PageHelper.startPage(pageNum, pageSize);
@@ -147,7 +147,23 @@ public class ProductServiceImpl implements IProductService {
 		return productListVo;
 	}
 	
-	
+	@Override
+	public ServerResponse<PageInfo> searchProduct(String productName,Integer productId
+			,Integer pageNum,Integer pageSize){
+		PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isNoneBlank(productName)){
+			productName=new StringBuilder().append("%").append(productName).append("%").toString();
+		}
+		List<Product> productList=productMapper.selectByNameAndProductId(productName, productId);
+		List<ProductListVo> productListVoList=Lists.newArrayList();
+		for(Product productItem:productList){
+			ProductListVo productListVo=assembleProductListVo(productItem);
+			productListVoList.add(productListVo);
+		}
+		PageInfo pageResult=new PageInfo(productList);
+		pageResult.setList(productListVoList);
+		return ServerResponse.createBySuccess(pageResult);
+	}
 	
 	
 	

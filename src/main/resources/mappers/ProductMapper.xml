@@ -182,4 +182,17 @@
   	form mmall_product
   	order by id 
   </select>
+  <select id="selectByNameAndProductId"  resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	form mmall_product
+  	<where>
+  		<if test="productName !=null">
+  			and name like #{productName}
+  		</if>
+  		<if test="productId !=null">
+  			and id=#{productId}
+  		</if>
+  	</where>
+  </select>
 </mapper>

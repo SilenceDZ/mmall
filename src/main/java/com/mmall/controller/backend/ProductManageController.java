@@ -38,7 +38,8 @@ public class ProductManageController {
 	public ServerResponse productSave(HttpSession session,Product product){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
 		if(user==null){
-			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode()
+					, "用户未登录，请登录");
 		}
 		//校验一下是否是管理员
 		if(iUserService.checkAdminRole(user).isSuccess()){
@@ -62,7 +63,8 @@ public class ProductManageController {
 	public ServerResponse setSaleStatus(HttpSession session,Integer productId,Integer status){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
 		if(user==null){
-			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode()
+					, "用户未登录，请登录");
 		}
 		//校验一下是否是管理员
 		if(iUserService.checkAdminRole(user).isSuccess()){
@@ -76,7 +78,8 @@ public class ProductManageController {
 	public ServerResponse getDetail(HttpSession session,Integer productId){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
 		if(user==null){
-			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), 
+					"用户未登录，请登录");
 		}
 		//校验一下是否是管理员
 		if(iUserService.checkAdminRole(user).isSuccess()){
@@ -88,7 +91,8 @@ public class ProductManageController {
 	
 	@RequestMapping("list.action")
 	@ResponseBody
-	public ServerResponse getList(HttpSession session,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum
+	public ServerResponse getList(HttpSession session
+			,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum
 			,@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
 		User user =(User) session.getAttribute(Const.CURRENT_USER);
 		if(user==null){
@@ -98,6 +102,25 @@ public class ProductManageController {
 		if(iUserService.checkAdminRole(user).isSuccess()){
 			//业务实现
 			return iProductService.getProductList(pageNum, pageSize);
+		}
+		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
+	}
+	
+	@RequestMapping("search.action")
+	@ResponseBody
+	public ServerResponse productSearch(HttpSession session
+			,String productName
+			,Integer productId
+			,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum
+			,@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
+		User user =(User) session.getAttribute(Const.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+		}
+		//校验一下是否是管理员
+		if(iUserService.checkAdminRole(user).isSuccess()){
+			//业务实现
+			return iProductService.searchProduct(productName, productId, pageNum, pageSize);
 		}
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
