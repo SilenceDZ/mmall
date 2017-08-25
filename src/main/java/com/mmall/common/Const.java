@@ -36,7 +36,13 @@ public class Const {
 			return code;
 		}
 	}
-	
+	public interface Cart{
+		int CHECKED=1;//购物车选中状态
+		int UN_CHECKED=0;//购物车未选中
+		//限制购买数量
+		String LIMIT_NUM_FAIL="LIMIT_NUM_FAIL";
+		String LIMIT_NUM_SUCCESS="LIMIT_NUM_SUCCESS";
+	}
 	public interface ProductListOrderBy{
 		Set<String> PRICE_ASC_DES=Sets.newHashSet("price_desc","price_asc");
 	}
