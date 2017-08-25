@@ -17,6 +17,7 @@ import com.mmall.util.FTPUtil;
 public class FileServiceImpl implements IFileServer {
 	private  final Logger logger=LoggerFactory.getLogger(FileServiceImpl.class);
 	
+	@Override
 	public String upload(MultipartFile file ,String path){
 		String fileName=file.getOriginalFilename();
 		String fileExtensionName=fileName.substring(fileName.lastIndexOf(".")+1);

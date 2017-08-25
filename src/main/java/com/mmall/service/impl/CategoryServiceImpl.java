@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	 * 递归查询本节点的id及子节点的id
 	 */
 	@Override
-	public ServerResponse selectCategoryAndChildrenById(Integer categoryId) {
+	public ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId) {
 		//Sets工具是guva缓存中的工具类，下面的Lists相同
 		Set<Category> categorySet=Sets.newHashSet();
 		findChildCategory(categorySet, categoryId);

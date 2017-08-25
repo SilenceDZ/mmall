@@ -1,5 +1,9 @@
 package com.mmall.common;
 
+import java.util.Set;
+
+import com.google.common.collect.Sets;
+
 public class Const {
 	public static final String CURRENT_USER="currentUser";
 	
@@ -16,5 +20,24 @@ public class Const {
 		 * @Fields ROLE_ADMIN:管理员
 		 */
 		int ROLE_ADMIN =1;
+	}
+	public enum ProductStatusEnum{
+		ON_SALE(1,"在线");
+		private String value;
+		private int code;
+		ProductStatusEnum(int code,String value){
+			this.code=code;
+			this.value=value;
+		}
+		public String getValue(){
+			return value;
+		}
+		public int getCode(){
+			return code;
+		}
+	}
+	
+	public interface ProductListOrderBy{
+		Set<String> PRICE_ASC_DES=Sets.newHashSet("price_desc","price_asc");
 	}
 }

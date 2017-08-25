@@ -85,6 +85,14 @@ public class ProductManageController {
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
 	
+	/**
+	 *Title:getDetail
+	 *Description:获取商品详情
+	 *@param session
+	 *@param productId 商品id
+	 *@return
+	 *Throws
+	 */
 	@RequestMapping("detail.action")
 	@ResponseBody
 	public ServerResponse getDetail(HttpSession session,Integer productId){
@@ -101,6 +109,15 @@ public class ProductManageController {
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
 	
+	/**
+	 *Title:getList
+	 *Description:获取商品列表，并做分页处理
+	 *@param session
+	 *@param pageNum 分页页码
+	 *@param pageSize 页面大小
+	 *@return
+	 *Throws
+	 */
 	@RequestMapping("list.action")
 	@ResponseBody
 	public ServerResponse getList(HttpSession session
@@ -118,6 +135,17 @@ public class ProductManageController {
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
 	
+	/**
+	 *Title:productSearch
+	 *Description:搜索商品，并做分页处理
+	 *@param session 
+	 *@param productName 商品名
+	 *@param productId 商品id
+	 *@param pageNum 分页页码
+	 *@param pageSize 分页大小
+	 *@return
+	 *Throws
+	 */
 	@RequestMapping("search.action")
 	@ResponseBody
 	public ServerResponse productSearch(HttpSession session
@@ -137,6 +165,15 @@ public class ProductManageController {
 		return ServerResponse.createByErrorMessage("无操作权限，需要管理员权限");
 	}
 	
+	/**
+	 *Title:upload
+	 *Description:文件上传
+	 *@param session
+	 *@param file 文件
+	 *@param request
+	 *@return
+	 *Throws
+	 */
 	@RequestMapping("uoload.action")
 	@ResponseBody 
 	public ServerResponse upload(HttpSession session,@RequestParam(value="upload_file",required=false) MultipartFile file,HttpServletRequest request){
@@ -159,6 +196,16 @@ public class ProductManageController {
 		}
 	}
 	
+	/**
+	 *Title:richImgUpload
+	 *Description:富文本中图片上传
+	 *@param session
+	 *@param file 文件
+	 *@param request
+	 *@param response
+	 *@return
+	 *Throws
+	 */
 	@RequestMapping("rich_img_upload.action")
 	@ResponseBody 
 	public Map richImgUpload(HttpSession session,@RequestParam(value="upload_file",required=false) MultipartFile file
