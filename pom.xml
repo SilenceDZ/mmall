@@ -20,11 +20,8 @@
 
 	</properties>
 	<dependencies>
-		<!-- <dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-servlet-api</artifactId>
-			<version>8.0.30</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-servlet-api</artifactId> 
+			<version>8.0.30</version> </dependency> -->
 		<!-- servlet所需要的jar包 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -213,6 +210,7 @@
 
 
 		<!-- alipay -->
+		<!-- alipay4个jar包依赖的jar包 -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -266,6 +264,11 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<!-- 为了使用本地jar包而配置的参数 -->
+					<encoding>UTF-8</encoding>
+					<compilerArguments>
+                        <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+                    </compilerArguments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -276,6 +279,20 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<!-- geelynote maven的核心插件之-complier插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 
+				增加编译插件 -->
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+					<compilerArguments>
+						<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+					</compilerArguments>
+				</configuration>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
