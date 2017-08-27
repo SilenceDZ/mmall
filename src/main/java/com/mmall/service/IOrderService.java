@@ -1,5 +1,7 @@
 package com.mmall.service;
 
+import java.util.Map;
+
 import com.mmall.common.ServerResponse;
 
 public interface IOrderService {
@@ -14,4 +16,8 @@ public interface IOrderService {
 	 *Throws
 	 */
 	public ServerResponse pay(Integer userId,Long orderNo,String path);
+
+	public ServerResponse aliCallback(Map<String,String> params);
+	
+	public ServerResponse queryOrderPayStatus(Integer userId,Long orderNo);
 }
