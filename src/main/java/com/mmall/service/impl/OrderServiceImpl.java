@@ -173,7 +173,7 @@ public class OrderServiceImpl implements IOrderService {
             	return ServerResponse.createByErrorMessage("不支持的交易状态，交易返回异常!!!");
         }
 	}
-	
+	@Override
 	public ServerResponse aliCallback(Map<String,String> params){
 		Long orderNo=Long.parseLong(params.get("out_trade_no"));
 		String tradeNo=params.get("trade_no");

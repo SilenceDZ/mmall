@@ -19,6 +19,7 @@ hs_err_pid*
 
 #maven ignore
 target/
+logs/
 
 #eclipse ignore
 .settings/
